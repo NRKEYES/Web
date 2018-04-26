@@ -1,0 +1,26 @@
+body{
+  background-color: #244A74;
+}
+
+p{
+    font-family: 'Old Standard TT', serif;
+    color: #8EE181;
+}
+
+
+h1,h2,h3,h4{
+    font-family: 'Old Standard TT', serif;
+    color: #8EE181;
+}
+h1{
+    font-size: 4em;
+}
+.chart rect{
+    fill: #72D0F5;
+}
+.chart text{
+    font-family: 'Old Standard TT', serif;
+    text-anchor: middle;
+    color: #8EE181;
+}
+<link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
