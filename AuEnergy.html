@@ -7,10 +7,14 @@
 <head>
 <title>Au+ Energy Diagram</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+
 <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js" charset="utf-8"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.1.2/math.js" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.js" charset="utf-8"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+
+
 <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
 </head>
 
@@ -21,13 +25,17 @@
 <body>
 <h1>Au<sup>+</sup>+ nCH<sub>4</sub> </h1>
 
-<svg class="chart" style="outline: thin solid black")></svg>
+<div id="3d"></div>
+<svg id="chart" class="chart" style="outline: thin solid black"></svg>
 
 
 <!--<script src="FirstTest.js"></script>
 -->
+
+
 <script src="Render.js"></script>
 <script src="BarGraph.js"></script>
+
 
 
 

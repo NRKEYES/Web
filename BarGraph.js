@@ -11,8 +11,8 @@ var duration = 5000;
 var barHeight = 16,
   barWidth = 200;
 
-var height = window.innerHeight - 120
-width = window.innerWidth - 10;
+let height = window.innerHeight - 120
+    width = window.innerWidth - 10;
 
 
 
@@ -44,7 +44,6 @@ d3.json("GoodStuff.json", function(error, data) {
     d.Atoms = d.Atoms;
     d.Key = +d.Key;
     d.Energy = Fix_Energy(d);
-    console.log(d.Energy)
     if (d.Energy < minEnergy) {
       minEnergy = d.Energy;
       maxAtomList = d.Atoms
@@ -106,17 +105,15 @@ d3.json("GoodStuff.json", function(error, data) {
     });
 
   bars.append("rect")
-    .on("click", function(){alert("Clicking works!")})
+    .on("click", function(d){ return render(100,400);})
     .attr("y", 0)
     .attr("rx", 5)
     .attr("ry", 5)
-    .attr("fill", function(d) { return d3.interpolateRdYlGn((c(d.Energy-normalizing_value))); })
+    .attr("fill", function(d) { return d3.interpolateRdBu((c(d.Energy-normalizing_value))); })
     .attr("width", (barWidth))
     .attr("height", (barHeight) - 1)
     .transition()
-    .attr("y", function(d) {
-      return y(d.Energy);
-    })
+    .attr("y",  function(d) {return y(d.Energy);})
     .duration(duration);
 
 
@@ -150,7 +147,6 @@ function get_atom_differences(a,b){
     }
     i++;
   });
-  console.log(missing)
 
   return missing //return indices of energies to add
 }
