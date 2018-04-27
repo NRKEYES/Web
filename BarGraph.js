@@ -119,7 +119,7 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("x", barWidth / 2)
     .attr("dy", ".35em")
     .text(function(d) {
-      return d.Energy;
+      return Math.round(d.Energy- minEnergy);
     })
     .transition()
     .attr("y", function(d) {

@@ -15,6 +15,7 @@ h1{
 
 .chart rect{
     fill: #B8C4CC;
+
 }
 .chart rect:hover{
     fill: #FFFFE5;
