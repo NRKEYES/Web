@@ -8,7 +8,7 @@ The goal here is to load energies from the JSON file
 var duration = 5000;
 
 var barHeight = 16,
-    barWidth =  100;
+    barWidth =  200;
 
 
 var height = window.innerHeight- 200
@@ -19,10 +19,6 @@ var y = d3.scaleLinear()
   .range([0, height])
 
 
-
-
-
-
 var chart = d3.select('.chart')
   .attr("width", width-10)
   .attr("height", height-10);
@@ -30,38 +26,56 @@ var chart = d3.select('.chart')
 
 
 var Calculations = [];
-console.log(typeof Calculations);
 
+
+var energeticFixxers = new Array();
 var realData = new Array();
 //Load From JSON
 d3.json("GoodStuff.json", function(error, data) {
   for (let key in data){
-    realData.push( data[key]);
-  }
-  data = realData;
+    if( data[key].Key > 20){
+      data[key].pop
+      realData.push( data[key]);
+    }else{
+      energeticFixxers.push(data[key])
+    }
 
+  }
+
+  var energies = new Array();
+
+  data = realData;
   data.forEach(function(d) {
     d.Atoms = d.Atoms;
-    d.Energy = +d.Energy;
+    d.Energy = Fix_Energy(+d.Energy);
     d.Key = +d.Key;
   });
 
+function Fix_Energy(){
 
+
+}
+
+
+  //Stacking the structures based on atoms
   var keys = []
-  console.log(data.length);
-  //Stacking
   for (var i = 0; i<data.length; i++){
     value = data[i].Key;
-    if(!keys.includes(value)){
+    if(!keys.includes(value) ){
       keys.push(value);
     }
   }
-  console.log(keys);
-  var spacing = width/keys.length;
 
+  //fixing the energies
+  // Get max key, add to other structures to get to max key
+
+
+  var spacing = width/keys.length;
   var x = d3.scaleOrdinal()
     .domain(keys)
     .range(math.range(0,width, spacing)._data); // the underscore data helps to get the actual array
+
+
 
 
   var bars = chart.selectAll("g")
