@@ -79,7 +79,10 @@ d3.json("GoodStuff.json", function(error, data) {
   }
   var y = d3.scaleLinear()
     .domain([2*barHeight+maxEnergy, minEnergy-2*barHeight])
-    .range([0, height])
+    .range([0, height]);
+  var c = d3.scaleLinear()
+    .domain([maxEnergy-normalizing_value,minEnergy-normalizing_value])
+    .range([0,1])
 
   //Stacking the structures based on atoms
   var keys = []
@@ -106,7 +109,7 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("y", 0)
     .attr("rx", 5)
     .attr("ry", 5)
-    .attr("fill", function(d) { return d3.hsl((y(d.Energy)), 1, .5); })
+    .attr("fill", function(d) { return d3.interpolateRdYlGn((c(d.Energy-normalizing_value))); })
     .attr("width", (barWidth))
     .attr("height", (barHeight) - 1)
     .transition()
