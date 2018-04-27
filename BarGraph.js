@@ -6,20 +6,23 @@ The goal here is to load energies from the JSON file
 var duration = 5000;
 
 var barHeight = 20,
-    barWidth = 40
+    barWidth = 100
 
 
-var width = window.innerWidth * .50,
-    height = window.innerHeight * .25;
+var width = 800,
+    height = 600;
 
 var x = d3.scaleLinear()
-  .range([0, width])
-  .domain([0,-10000]);
+  .domain([0,-10000])
+  .range([0, height])
+
 
 
 
 var chart = d3.select('.chart')
-  .attr("width", width);
+  .attr("width", width)
+  .attr("height", height);
+
 
 
 var Calculations = [];
@@ -45,20 +48,14 @@ d3.json("GoodStuff.json", function(error, data) {
   for (var i = 0; i<data.length; i++){
     console.log(data[i].Key);
 
+
   }
 
-
-
-
-
-
-
-  chart.attr("height", barHeight * data.length)
 
   var bars = chart.selectAll("g")
       .data(data)
     .enter().append("g")
-      .attr("transform", function(d, i) { return "translate("+ i * barWidth + ", 0)"; });
+      .attr("transform", function(d, i) { return "translate("+ i * width/data.length + ", 0)"; });
 
 
     bars.append("rect")

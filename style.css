@@ -10,7 +10,7 @@ p{
 
 h1,h2,h3,h4{
     font-family: 'Old Standard TT', serif;
-    color: #B8C4CC;
+    color: DarkestGrey;
 }
 h1{
     font-size: 4em;
@@ -24,4 +24,8 @@ h1{
     text-anchor: middle;
     color: #8EE181;
 }
+.border{
+  color: white;
+}
+
 <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
