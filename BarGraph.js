@@ -51,8 +51,8 @@ d3.json("GoodStuff.json", function(error, data) {
     d.Key = +d.Key;
   });
 
-function Fix_Energy(){
-
+function Fix_Energy(energy){
+  return(energy)
 
 }
 
