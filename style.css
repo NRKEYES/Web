@@ -17,7 +17,7 @@ h1{
     fill: #B8C4CC;
 }
 .chart rect:hover{
-    fill: red;
+    fill: #FFFFE5;
 }
 .chart text{
     font-family: 'Old Standard TT', serif;

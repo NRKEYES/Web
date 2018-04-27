@@ -1,76 +1,85 @@
 /*
 The goal here is to load energies from the JSON file
-
 */
 
-
 var key_to_zero_on = 178;
+var atoms = [79,6,1] //Manual at the moment
+
 
 var duration = 5000;
 
 var barHeight = 16,
   barWidth = 200;
 
+var height = window.innerHeight - 120
+width = window.innerWidth - 10;
 
-var height = window.innerHeight - 200
-width = window.innerWidth - 60;
-
-var y = d3.scaleLinear()
-  .domain([0, -10000])
-  .range([0, height])
 
 
 var chart = d3.select('.chart')
   .attr("width", width - 10)
   .attr("height", height - 10)
 
-
-
 var Calculations = [];
-
 
 var energeticFixxers = new Array();
 var realData = new Array();
 //Load From JSON
 d3.json("GoodStuff.json", function(error, data) {
   for (let key in data) {
-    if (data[key].Key > 20) {
+    if (data[key].Key > 159) {
       data[key].pop
       realData.push(data[key]);
     } else {
       energeticFixxers.push(data[key])
     }
-
   }
 
   var energies = new Array();
-  var minEnergy = 0
+  var minEnergy = 0;
+  var maxEnergy = -1000000000;
+  var maxAtomList = new Array();
   data = realData;
   data.forEach(function(d) {
     d.Atoms = d.Atoms;
-
     d.Key = +d.Key;
     d.Energy = Fix_Energy(d);
+    console.log(d.Energy)
     if (d.Energy < minEnergy) {
       minEnergy = d.Energy;
+      maxAtomList = d.Atoms
+    }
+    if (d.Energy > maxEnergy) {
+      maxEnergy = d.Energy;
     }
   });
 
+  console.log(energeticFixxers);
 
   //fixing the energies
   // Get max key, add to other structures to get to max key
-
-
   function Fix_Energy(d) {
-    var key_difference = d.Key - key_to_zero_on;
-    if (key_difference != 0) {
-      //fix this
-    } else {
-      //do Nothing
+    if (d.key != key_to_zero_on) {
+      temp = d.Atoms;
+      //Super hacky and must be fixed
+      if(d.Key == 176){
+        d.Energy += energeticFixxers[2].Energy;
+      }
+      if(d.Key == 174){
+        d.Energy += 2*energeticFixxers[2].Energy;
+      }
+      if(d.Key == 168){
+        d.Energy += energeticFixxers[1].Energy;
+      }
+      if(d.Key == 166){
+        d.Energy += energeticFixxers[1].Energy + energeticFixxers[2].Energy ;
+      }
+    return (+d.Energy*96) // returns in kJ/mol
     }
-    return (+d.Energy)
   }
-
+  var y = d3.scaleLinear()
+    .domain([2*barHeight+maxEnergy, minEnergy-2*barHeight])
+    .range([0, height])
 
   //Stacking the structures based on atoms
   var keys = []
@@ -81,16 +90,10 @@ d3.json("GoodStuff.json", function(error, data) {
     }
   }
 
-
-
-
   var spacing = width / keys.length;
   var x = d3.scaleOrdinal()
     .domain(keys)
     .range(math.range(0, width, spacing)._data); // the underscore data helps to get the actual array
-
-
-
 
   var bars = chart.selectAll("g")
     .data(data)
@@ -98,7 +101,6 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("transform", function(d, i) {
       return "translate(" + x(d.Key) + ", 0)";
     });
-
 
   bars.append("rect")
     .attr("y", 0)
@@ -117,7 +119,7 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("x", barWidth / 2)
     .attr("dy", ".35em")
     .text(function(d) {
-      return d.Key;
+      return d.Energy;
     })
     .transition()
     .attr("y", function(d) {
@@ -125,3 +127,24 @@ d3.json("GoodStuff.json", function(error, data) {
     })
     .duration(duration);
 });
+
+
+
+
+Array.prototype.contains = function(val){
+  return this.filter(item => item == val).length;
+}
+
+function get_atom_differences(a,b){
+  var missing = [0,0,0]
+  var i = 0;
+  atoms.forEach(function(atom){
+    if(b.contains(atom) != a.contains(atom)){
+      missing[i] = b.contains(atom) - a.contains(atom)
+    }
+    i++;
+  });
+  console.log(missing)
+
+  return missing //return indices of energies to add
+}
