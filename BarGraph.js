@@ -55,7 +55,7 @@ d3.json("GoodStuff.json", function(error, data) {
   });
 
   console.log(energeticFixxers);
-
+  var normalizing_value = 96*(energeticFixxers[0].Energy+2*energeticFixxers[1].Energy);
   //fixing the energies
   // Get max key, add to other structures to get to max key
   function Fix_Energy(d) {
@@ -119,7 +119,7 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("x", barWidth / 2)
     .attr("dy", ".35em")
     .text(function(d) {
-      return Math.round(d.Energy- minEnergy);
+      return Math.round(d.Energy- normalizing_value);
     })
     .transition()
     .attr("y", function(d) {
