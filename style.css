@@ -1,6 +1,6 @@
-body{
-    background-color: #FFFFE5;
-}
+
+
+
 
 p{
     font-family: 'Old Standard TT', serif;
@@ -13,7 +13,7 @@ h1,h2,h3,h4{
     color: DarkestGrey;
 }
 h1{
-    font-size: 4em;
+    font-size: 2em;
 }
 
 .chart rect{
@@ -24,8 +24,7 @@ h1{
     text-anchor: middle;
     color: #8EE181;
 }
-.border{
-  color: white;
-}
+
+
 
 <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
