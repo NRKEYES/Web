@@ -106,6 +106,7 @@ d3.json("GoodStuff.json", function(error, data) {
     });
 
   bars.append("rect")
+    .on("click", function(){alert("Clicking works!")})
     .attr("y", 0)
     .attr("rx", 5)
     .attr("ry", 5)
@@ -117,6 +118,7 @@ d3.json("GoodStuff.json", function(error, data) {
       return y(d.Energy);
     })
     .duration(duration);
+
 
   bars.append("text")
     .attr("y", barHeight / 2)
