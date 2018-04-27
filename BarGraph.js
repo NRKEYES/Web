@@ -106,6 +106,7 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("y", 0)
     .attr("rx", 5)
     .attr("ry", 5)
+    .attr("fill", function(d) { return d3.hsl((y(d.Energy)), 1, .5); })
     .attr("width", (barWidth))
     .attr("height", (barHeight) - 1)
     .transition()
