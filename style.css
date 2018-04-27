@@ -16,12 +16,17 @@ h1{
 .chart rect{
     fill: #B8C4CC;
 }
+.chart rect:hover{
+    fill: red;
+}
 .chart text{
     font-family: 'Old Standard TT', serif;
     text-anchor: middle;
     color: #8EE181;
 }
 
-
+.chart axis{
+  display: none;
+}
 
 <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
