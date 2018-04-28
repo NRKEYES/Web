@@ -23,19 +23,17 @@ scene.position.x =0;
 scene.position.y =0;
 scene.position.z = 0;
 
-let pointLight = new THREE.PointLight( 0xd8d0d1 );
+let pointLight = new THREE.PointLight( 0xFBFCF6 );
 pointLight.position.x = 20;
-pointLight.position.z = 20
+pointLight.position.z = 30
 scene.add(pointLight);
-
-pointLight = new THREE.PointLight( 0xFEF4D0);
-pointLight.position.x = -20;
+pointLight = new THREE.PointLight( 0xFBFCF6 );
+pointLight.position.x = -30;
 pointLight.position.y = -20
 scene.add(pointLight);
-
-pointLight = new THREE.PointLight( 0xFEF4D0);
+pointLight = new THREE.PointLight( 0xFBFCF6 );
 pointLight.position.z = -20;
-pointLight.position.y = 20
+pointLight.position.y = 30
 scene.add(pointLight);
 
 container = document.getElementById('3d');
@@ -52,13 +50,16 @@ let atom_radius = {1:0.53,2:0.31,3:1.67,4:1.12,5:0.87,6:0.67,7:0.56,8:0.48,9:0.4
                     89:1.95,90:1.8,91:1.8,92:1.75,93:1.75,94:1.75,95:1.75}
 
 let spheres = [];
+
+let theta = 0;
+
 function render(local_x,local_y,atoms, coords){
   spheres.forEach(function(s){ scene.remove(s) });
 
   for(var i=0; i< coords.length; i++){
 
     let material = new THREE.MeshLambertMaterial({  color: COLORS[atoms[i]] ,
-                                                		flatShading: true});
+                                                		flatShading: false});
 
     let geometry = new THREE.SphereGeometry( atom_radius[atoms[i]], 20, 20);
     let sphere = new THREE.Mesh( geometry, material);
@@ -71,13 +72,12 @@ function render(local_x,local_y,atoms, coords){
     scene.add(sphere);
   };
 
-  let theta = 0;
   function animate() {
     requestAnimationFrame( animate );
     renderer.render(scene, camera);
 
     camera.position.x = 10*math.cos(theta);
-    camera.position.y = 10*math.sin(theta);
+    camera.position.y = 5*math.sin(theta);
     camera.position.z = 10*math.sin(theta);
     theta+= .01;
 
