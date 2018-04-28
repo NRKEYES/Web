@@ -10,7 +10,7 @@ let colors = {1:"0x73BFB8",
 let renderer = new THREE.WebGLRenderer({alpha: true, antialiasing: true});
 renderer.setClearColor( 0x000000, 0 );
 renderer.domElement.style.position = 'absolute';
-renderer.setSize(  window.innerWidth,  200 );
+renderer.setSize(  window.innerWidth,  height_for_3d );
 
 let camera = new THREE.PerspectiveCamera( 30,
                                         window.innerWidth/200,
@@ -25,6 +25,10 @@ pointLight.position.x = 20;
 pointLight.position.z = 20
 scene.add(pointLight);
 
+pointLight = new THREE.PointLight( 0xFEC601);
+pointLight.position.x = -20;
+pointLight.position.y = -20
+scene.add(pointLight);
 
 container = document.getElementById('3d');
 container.appendChild(renderer.domElement);
