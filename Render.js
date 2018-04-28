@@ -27,14 +27,7 @@ let pointLight = new THREE.PointLight( 0xFBFCF6 );
 pointLight.position.x = 20;
 pointLight.position.z = 30
 scene.add(pointLight);
-pointLight = new THREE.PointLight( 0xFBFCF6 );
-pointLight.position.x = -30;
-pointLight.position.y = -20
-scene.add(pointLight);
-pointLight = new THREE.PointLight( 0xFBFCF6 );
-pointLight.position.z = -20;
-pointLight.position.y = 30
-scene.add(pointLight);
+
 
 container = document.getElementById('3d');
 container.appendChild(renderer.domElement);
@@ -58,7 +51,7 @@ function render(local_x,local_y,atoms, coords){
 
   for(var i=0; i< coords.length; i++){
 
-    let material = new THREE.MeshLambertMaterial({  color: COLORS[atoms[i]] ,
+    let material = new THREE.MeshToonMaterial({  color: COLORS[atoms[i]] ,
                                                 		flatShading: false});
 
     let geometry = new THREE.SphereGeometry( atom_radius[atoms[i]], 20, 20);
@@ -81,6 +74,10 @@ function render(local_x,local_y,atoms, coords){
     camera.position.z = 10*math.sin(theta);
     theta+= .01;
 
+
+    pointLight.position.x = 10*math.cos(theta);
+    pointLight.position.y = 20*math.sin(theta);
+    pointLight.position.z = 10*math.sin(theta);
     camera.lookAt(scene.position);
   }
   animate();
