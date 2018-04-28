@@ -11,8 +11,8 @@ var duration = 5000;
 var barHeight = 16,
   barWidth = 200;
 
-let height = window.innerHeight - 120
-    width = window.innerWidth - 10;
+let height = window.innerHeight*.95
+    width = window.innerWidth*.99;
 
 
 
