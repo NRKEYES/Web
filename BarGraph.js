@@ -42,6 +42,7 @@ d3.json("GoodStuff.json", function(error, data) {
   data = realData;
   data.forEach(function(d) {
     d.Atoms = d.Atoms;
+    d.Coords = d.Coords;
     d.Key = +d.Key;
     d.Energy = Fix_Energy(d);
     if (d.Energy < minEnergy) {
@@ -105,7 +106,7 @@ d3.json("GoodStuff.json", function(error, data) {
     });
 
   bars.append("rect")
-    .on("click", function(d){ return render(100,400);})
+    .on("click", function(d){ return render(100,400,d.Atoms,d.Coords);})
     .attr("y", 0)
     .attr("rx", 5)
     .attr("ry", 5)

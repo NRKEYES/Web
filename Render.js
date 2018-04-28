@@ -1,51 +1,56 @@
 let width_for_3d = 300;
 let height_for_3d = 300;
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera( 75, window.innerWidth/200, 0.1, 1000 );
-let renderer = new THREE.WebGLRenderer({alpha: true});
 
+
+let renderer = new THREE.WebGLRenderer({alpha: true, antialiasing: true});
+renderer.setClearColor( 0x000000, 0 );
 renderer.domElement.style.position = 'absolute';
 renderer.setSize(  window.innerWidth,  200 );
+
+let camera = new THREE.PerspectiveCamera( 30,
+                                        window.innerWidth/200,
+                                        0.1,
+                                        1000 );
+camera.position.z = 20;
+
+let scene = new THREE.Scene();
+
+let pointLight = new THREE.PointLight( 0xd8d0d1 );
+pointLight.position.x = 20;
+pointLight.position.z = 20
+scene.add(pointLight);
+
+
+
+
 container = document.getElementById('3d');
 container.appendChild(renderer.domElement);
 
-let geometry = new THREE.SphereGeometry( 1, 10 );
+
+var spheres = [];
+
+function render(local_x,local_y,atoms, coords){
+  console.log(coords)
+  console.log(coords[0][0])
 
 
-camera.position.z = 5;
-camera.position.x = 2;
+  for(var i=0; i< coords.length; i++){
+    console.log(coords[i][0]);
+    let material = new THREE.MeshLambertMaterial({ color: 0xf25346});
+    let geometry = new THREE.SphereGeometry( math.log10(atoms[i]), 20,20 );
+    let sphere = new THREE.Mesh( geometry, material);
+    sphere.position.set(coords[i][0],coords[i][1],coords[i][2]);
+    spheres.push(sphere);
+    scene.add(sphere);
+  };
 
 
-function render(local_x,local_y){
-  this.x=local_x;
-  this.y=local_y;
-
-  let material1 = new THREE.MeshBasicMaterial( { color: 'blue' } )
-
-
-  var sphere1 = new THREE.Mesh( geometry, material1 );
-  sphere1.position.set(0,0,1)
-  scene.add( sphere1 );
-
-/*
-  let material2 = new THREE.MeshBasicMaterial( { color: 'grey' } )
-  var sphere2 = new THREE.Mesh( geometry, material2 );
-  sphere2.position.set(2,2,1)
-  scene.add( sphere2 );
-*/
 
 
 
   function animate() {
     requestAnimationFrame( animate );
-
-    sphere1.rotation.x += 0.1;
-    sphere1.rotation.y += 0.1;
-
     renderer.render(scene, camera);
   };
-
-
-animate();
-
+  animate();
 }
