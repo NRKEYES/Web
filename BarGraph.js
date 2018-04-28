@@ -1,24 +1,23 @@
 /*
 The goal here is to load energies from the JSON file
 */
-
 var key_to_zero_on = 178;
 var atoms = [79,6,1] //Manual at the moment
 
-
 var duration = 5000;
 
+// let width = $(".col-6").width();
+let width = $(".container").width();
+let height = window.innerHeight * .60;
+
 var barHeight = 16,
-  barWidth = 200;
-
-let height = window.innerHeight*.95
-    width = window.innerWidth*.99;
-
+    barWidth = (width / 5) - 10;
 
 
 var chart = d3.select('.chart')
   .attr("width", width - 10)
   .attr("height", height - 10)
+  .attr("align","center");
 
 var Calculations = [];
 
