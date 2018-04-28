@@ -1,8 +1,8 @@
 let width_for_3d = window.innerWidth;
-let height_for_3d = window.innerHeight/2;
+let height_for_3d = window.innerHeight;
 
 
-let COLORS = {'1': 0xFEC601,
+let COLORS = {'1': 0xFCF6B1,
               '6': 0x233D4D,
               '79': 0xD0A301}
 
