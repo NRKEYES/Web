@@ -1,46 +1,55 @@
 
 #3d {
-	position: absolute;
   z-index: -10
+	display: inline;
 }
 
 
-p{
+p {
     font-family: 'Old Standard TT', serif;
     color: #8EE181;
 }
 
 
-h1,h2,h3,h4{
+h1,h2,h3,h4 {
     font-family: 'Old Standard TT', serif;
     color: DarkestGrey;
 }
-h1{
+
+
+h1 {
     font-size: 2em;
 }
 
-.chart{
-  position:absolute;
+.chart {
   z-index: 0
 }
 
 
-.chart rect{
+.chart rect {
 
 
 }
-.chart rect:hover{
+
+
+.chart rect:hover {
     fill: #FFFFE5;
 		stroke: black;
 }
-.chart text{
+
+
+.chart text {
     font-family: 'Old Standard TT', serif;
     text-anchor: middle;
     color: #8EE181;
 }
 
-.chart axis{
+.chart axis {
   display: none;
 }
 
-<link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
+
+#chartContainer {
+  display: flex;
+  justify-content: center;
+}

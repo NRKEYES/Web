@@ -6,16 +6,43 @@
 
 <head>
 <title>Au+ Energy Diagram</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+<!-- Bootstrap 4 Stylesheet -->
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous">
 
-<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js" charset="utf-8"></script>
+<!-- Custom Stylesheet -->
+<link rel="stylesheet"
+      type="text/css"
+      href="style.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.1.2/math.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.js" charset="utf-8"></script>
+<!-- Custom Google font -->
+<link href="https://fonts.googleapis.com/css?family=Old+Standard+TT"
+      rel="stylesheet">
 
+<!-- Bootstrap 4 JS dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
-<link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
+<!-- D3 dependencies-->
+<script src="https://d3js.org/d3.v4.min.js"
+        charset="utf-8"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"
+        charset="utf-8"></script>
+
+<!-- Threes dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.1.2/math.js"
+        charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.js"
+        charset="utf-8"></script>
 </head>
 
 
@@ -23,10 +50,42 @@
 
 
 <body>
-<h1>Au<sup>+</sup>+ nCH<sub>4</sub> </h1>
+<div class="container" id="pageContainer">
 
-<div id="3d"></div>
-<svg id="chart" class="chart" style="outline: thin solid black"></svg>
+
+  <div class="mt-5">
+    <h1>Au<sup>+</sup>+ nCH<sub>4</sub> </h1>
+  </div>
+
+  <div class="jumbotron my-5">
+    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+  </div>
+
+  <div id="chartContainer"> <!-- comment out this line and un-comment the row and col lines to split screen view -->
+  <!-- <div class="row"> -->
+    <!-- <div class="col-6"> -->
+    <div id="3d"></div>
+  <!-- </div> -->
+  <!-- <div class="col-6"> -->
+    <svg id="chart" class="chart" style="outline: thin solid black"></svg>
+  <!-- </div> -->
+  </div>
+
+  <div class="jumbotron my-5">
+      <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+  </div>
+
+
+</div>
+
+<!--Copyright-->
+    <div class="footer-copyright py-3 text-center">
+        © 2018 Copyright Nicholas R. Keyes
+    </div>
+    <!--/.Copyright-->
+
+
+
 
 
 <!--<script src="FirstTest.js"></script>
