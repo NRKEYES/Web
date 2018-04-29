@@ -44,9 +44,10 @@ let atom_radius = {1:0.53,2:0.31,3:1.67,4:1.12,5:0.87,6:0.67,7:0.56,8:0.48,9:0.4
 
 let spheres = [];
 
-let theta = 0;
+
 
 function render(local_x,local_y,atoms, coords){
+  let theta = 0;
   spheres.forEach(function(s){ scene.remove(s) });
 
   for(var i=0; i< coords.length; i++){
@@ -72,7 +73,7 @@ function render(local_x,local_y,atoms, coords){
     camera.position.x = 10*math.cos(theta);
     camera.position.y = 5*math.sin(theta);
     camera.position.z = 10*math.sin(theta);
-    theta+= .01;
+    theta+= .05;
 
 
     pointLight.position.x = 10*math.cos(theta);

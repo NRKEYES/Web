@@ -6,16 +6,21 @@ var atoms = [79,6,1] //Manual at the moment
 
 var duration = 5000;
 
+var margin = {top: 20, right: 50, bottom: 30, left: 50},
+
+
+padding = 50;
+paddingMultiplier = 1.4;
 // let width = $(".col-6").width();
 let width = $(".container").width();
 let height = window.innerHeight * .60;
 
 var barHeight = 16,
-    barWidth = (width / 5) - 10;
+    barWidth = (width-paddingMultiplier*padding) / 5;
 
 
 var chart = d3.select('.chart')
-  .attr("width", width - 10)
+  .attr("width", width)
   .attr("height", height - 10)
   .attr("align","center");
 
@@ -33,17 +38,23 @@ d3.json("GoodStuff.json", function(error, data) {
       energeticFixxers.push(data[key])
     }
   }
+  data = realData;
+  let normalizing_value = (energeticFixxers[0].Energy+2*energeticFixxers[1].Energy); //Super hacky and must be fixed
+  console.log(energeticFixxers);
+  console.log(normalizing_value)
 
   var energies = new Array();
   var minEnergy = 0;
-  var maxEnergy = -1000000000;
+  var maxEnergy = 0;
   var maxAtomList = new Array();
-  data = realData;
+
   data.forEach(function(d) {
+
     d.Atoms = d.Atoms;
     d.Coords = d.Coords;
     d.Key = +d.Key;
     d.Energy = Fix_Energy(d);
+
     if (d.Energy < minEnergy) {
       minEnergy = d.Energy;
       maxAtomList = d.Atoms
@@ -52,36 +63,48 @@ d3.json("GoodStuff.json", function(error, data) {
       maxEnergy = d.Energy;
     }
   });
+  console.log(maxEnergy);
+  console.log(minEnergy)
 
-  console.log(energeticFixxers);
-  var normalizing_value = 96*(energeticFixxers[0].Energy+2*energeticFixxers[1].Energy);
+
+
   //fixing the energies
   // Get max key, add to other structures to get to max key
   function Fix_Energy(d) {
-    if (d.key != key_to_zero_on) {
-      temp = d.Atoms;
-      //Super hacky and must be fixed
-      if(d.Key == 176){
-        d.Energy += energeticFixxers[2].Energy;
-      }
-      if(d.Key == 174){
-        d.Energy += 2*energeticFixxers[2].Energy;
-      }
-      if(d.Key == 168){
-        d.Energy += energeticFixxers[1].Energy;
-      }
-      if(d.Key == 166){
-        d.Energy += energeticFixxers[1].Energy + energeticFixxers[2].Energy ;
-      }
-    return (+d.Energy*96) // returns in kJ/mol
+
+    if(d.Key == 176){
+      d.Energy += energeticFixxers[2].Energy;
     }
+    if(d.Key == 174){
+      d.Energy += 2*energeticFixxers[2].Energy;
+    }
+    if(d.Key == 168){
+      d.Energy += energeticFixxers[1].Energy;
+    }
+    if(d.Key == 166){
+      d.Energy += energeticFixxers[1].Energy + energeticFixxers[2].Energy ;
+    }
+    d.Energy -= normalizing_value;
+  return (+d.Energy*96) // returns in kJ/mol
+
   }
   var y = d3.scaleLinear()
-    .domain([2*barHeight+maxEnergy, minEnergy-2*barHeight])
+    .domain([padding+maxEnergy, minEnergy-padding])
     .range([0, height]);
   var c = d3.scaleLinear()
-    .domain([maxEnergy-normalizing_value,minEnergy-normalizing_value])
+    .domain([maxEnergy,minEnergy])
     .range([0,1])
+
+
+  // Now that y scale is defined, create maxAtomList
+  var leftAxis = d3.axisLeft(y);
+
+  chart.append("g")
+    .attr("transform", function(){return "translate(" + 30 + "," + 0+")"})
+    .call(customYAxis);
+
+
+
 
   //Stacking the structures based on atoms
   var keys = []
@@ -92,10 +115,18 @@ d3.json("GoodStuff.json", function(error, data) {
     }
   }
 
-  var spacing = width / keys.length;
+
+
+  let spacing = (width-padding) / keys.length;
+
+  let bottomAxisSpacing = math.range(margin.left, width-margin.right, spacing)._data;
+  console.log(bottomAxisSpacing)
+
   var x = d3.scaleOrdinal()
     .domain(keys)
-    .range(math.range(0, width, spacing)._data); // the underscore data helps to get the actual array
+    .range(bottomAxisSpacing); // the underscore data helps to get the actual array
+
+
 
   var bars = chart.selectAll("g")
     .data(data)
@@ -104,12 +135,14 @@ d3.json("GoodStuff.json", function(error, data) {
       return "translate(" + x(d.Key) + ", 0)";
     });
 
+
+
   bars.append("rect")
-    .on("click", function(d){ return render(100,400,d.Atoms,d.Coords);})
+    .on("click", function(d){ return render(width/2,height/2,d.Atoms,d.Coords);})
     .attr("y", 0)
     .attr("rx", 5)
     .attr("ry", 5)
-    .attr("fill", function(d) { return d3.interpolateRdBu((c(d.Energy-normalizing_value))); })
+    .attr("fill", function(d) { return d3.interpolateRdBu((c(d.Energy))); })
     .attr("width", (barWidth))
     .attr("height", (barHeight) - 1)
     .transition()
@@ -122,14 +155,40 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("x", barWidth / 2)
     .attr("dy", ".35em")
     .text(function(d) {
-      return Math.round(d.Energy- normalizing_value);
+      return Math.round(d.Energy);
     })
     .transition()
     .attr("y", function(d) {
       return y(d.Energy) + barHeight / 2;
     })
     .duration(duration);
+
+
+    var xAxis = d3.axisBottom(x)
+       .tickValues(["2Au+2C+8H", "2Au+2C+4H", "2Au+C+2H","2Au+C+4H","2Au+2C+6H"]);
+
+    chart.append("g")
+        .attr("transform", function(){return "translate("+ 100 +","+ (height - margin.bottom) +")";})
+        .call(customXAxis)
+
+
+    function customYAxis(g){
+      g.call(leftAxis)
+      g.select(".domain").remove()
+      g.selectAll(".tick text").attr("x", -20)
+    }
+
+    function customXAxis(g){
+      g.call(xAxis)
+      g.select(".domain").remove();
+    }
+
+
+
+
+
 });
+
 
 
 

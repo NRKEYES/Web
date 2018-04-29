@@ -6,6 +6,7 @@
 
 
 p {
+    margin: 0;
     font-family: 'Old Standard TT', serif;
     color: #233a24;
 }
@@ -22,7 +23,8 @@ h1 {
 }
 
 .chart {
-  z-index: 0
+  z-index: 0;
+  overflow: visible;
 }
 
 
@@ -52,4 +54,11 @@ h1 {
 #chartContainer {
   display: flex;
   justify-content: center;
+  overflow: visible;
+}
+
+
+
+svg;{
+  overflow: scroll;
 }
