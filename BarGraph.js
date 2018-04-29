@@ -168,7 +168,7 @@ d3.json("GoodStuff.json", function(error, data) {
        .tickValues(["2Au+2C+8H", "2Au+2C+4H", "2Au+C+2H","2Au+C+4H","2Au+2C+6H"]);
 
     chart.append("g")
-        .attr("transform", function(){return "translate("+ 100 +","+ (height - margin.bottom) +")";})
+        .attr("transform", function(){return "translate("+ barWidth/2 +","+ (height - margin.bottom) +")";})
         .call(customXAxis)
 
 
