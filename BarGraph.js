@@ -6,7 +6,7 @@ var atoms = [79,6,1] //Manual at the moment
 
 var duration = 5000;
 
-var margin = {top: 20, right: 50, bottom: 30, left: 50},
+var margin = {top: 50, right: 50, bottom: 50, left: 50},
 
 
 padding = 50;
@@ -39,7 +39,14 @@ d3.json("GoodStuff.json", function(error, data) {
     }
   }
   data = realData;
-  let normalizing_value = (energeticFixxers[0].Energy+2*energeticFixxers[1].Energy); //Super hacky and must be fixed
+
+  energeticFixxers.forEach(function(eF){
+    eF.Energy = 96*eF.Energy;
+  });
+
+
+
+  let normalizing_value = (energeticFixxers[0].Energy + 2*energeticFixxers[1].Energy); //Super hacky and must be fixed
   console.log(energeticFixxers);
   console.log(normalizing_value)
 
@@ -53,7 +60,9 @@ d3.json("GoodStuff.json", function(error, data) {
     d.Atoms = d.Atoms;
     d.Coords = d.Coords;
     d.Key = +d.Key;
-    d.Energy = Fix_Energy(d);
+    //console.log(d.Key);
+    //console.log(d.Energy);
+    d.Energy = Add_Energy(d) - normalizing_value;;
 
     if (d.Energy < minEnergy) {
       minEnergy = d.Energy;
@@ -70,27 +79,29 @@ d3.json("GoodStuff.json", function(error, data) {
 
   //fixing the energies
   // Get max key, add to other structures to get to max key
-  function Fix_Energy(d) {
+  function Add_Energy(d) {
+    temp = d.Energy
+    temp = temp*96
 
     if(d.Key == 176){
-      d.Energy += energeticFixxers[2].Energy;
+      temp += energeticFixxers[2].Energy;
     }
     if(d.Key == 174){
-      d.Energy += 2*energeticFixxers[2].Energy;
+      temp += 2*energeticFixxers[2].Energy;
     }
     if(d.Key == 168){
-      d.Energy += energeticFixxers[1].Energy;
+      temp += energeticFixxers[1].Energy;
     }
     if(d.Key == 166){
-      d.Energy += energeticFixxers[1].Energy + energeticFixxers[2].Energy ;
+      temp += energeticFixxers[1].Energy + energeticFixxers[2].Energy ;
     }
-    d.Energy -= normalizing_value;
-  return (+d.Energy*96) // returns in kJ/mol
-
+    return (temp) // returns in kJ/mol
   }
+
   var y = d3.scaleLinear()
-    .domain([padding+maxEnergy, minEnergy-padding])
-    .range([0, height]);
+    .domain([maxEnergy, minEnergy])
+    .range([0+margin.top, height-margin.bottom*paddingMultiplier]);
+
   var c = d3.scaleLinear()
     .domain([maxEnergy,minEnergy])
     .range([0,1])
