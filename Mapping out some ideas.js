@@ -1,12 +1,8 @@
 
+Plot Geometric distance vs energetic difference in a scatterplot.
+Update as user clicks on geometries.
 
-import d3
-import threes
 
-with d3 porses json!
 
-Pass json on to rest of code!
-
-Parse the Json as needed
-    Atom List
-    coord list, parse this intelligently
+Make clicking stateful. Each molecule cilked on will render, next to its clicking point. Untli clicking a second time the molecule will stay rendered.
+So I need to combine meshes and rotate the molecules instead of the cameras.
