@@ -1,5 +1,5 @@
 let width_for_3d = width;
-let height_for_3d = height;
+let height_for_3d = 1000;
 
 
 let COLORS = {'1': 0xFCF6B1,
