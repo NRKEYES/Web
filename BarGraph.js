@@ -178,13 +178,14 @@ d3.json("GoodStuff.json", function(error, data) {
 
 
     var xAxis = d3.axisBottom(x)
-       .tickValues(["Au2CH4 + CH4",
-                    "Au2CH2 + H2 + CH4",
-                    "Au2C2H8",
-                    "Au2C2H8 + H2",
-                    "Au2C2H4 + 2H2"])
+       .tickValues(["Au₂CH₄ + CH₄",
+                    "Au₂CH₂ + H₂ + CH₄",
+                    "Au₂C₂H₈",
+                    "Au₂C₂H₈ + H₂",
+                    "Au₂C2H4 + 2H₂"])
 
     chart.append("g")
+        .attr("class",'test')
         .attr("transform", function(){return "translate("+ barWidth/2 +","+ (height - margin.bottom) +")";})
         .call(customXAxis)
 
@@ -204,7 +205,10 @@ d3.json("GoodStuff.json", function(error, data) {
       g.select(".domain").remove();
     }
 
-
+    chart.selectAll(".xaxis text")  // select all the text elements for the xaxis
+      .attr("transform", function(d) {
+         return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+     });
 
 
 

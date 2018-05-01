@@ -41,6 +41,7 @@ h1 {
 
 .chart text {
     font-family: 'Old Standard TT', serif;
+    font-size: 10;
     text-anchor: middle;
     color: #8EE181;
 }
