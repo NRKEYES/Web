@@ -10,6 +10,7 @@ min-height : 20000em;
 
 p {
     margin: 0;
+    padding:10px;
     font-family: 'Old Standard TT', serif;
     color: #233a24;
 }
