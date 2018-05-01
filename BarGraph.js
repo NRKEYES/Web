@@ -4,7 +4,7 @@ The goal here is to load energies from the JSON file
 var key_to_zero_on = 178;
 var atoms = [79,6,1] //Manual at the moment
 
-var duration = 5000;
+var duration = 3000;
 
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
 
@@ -178,11 +178,11 @@ d3.json("GoodStuff.json", function(error, data) {
 
 
     var xAxis = d3.axisBottom(x)
-       .tickValues(["Au<tspan baseline-shift = 'sub'>2</tspan>+2C+8H",
-                    "2Au+2C+4H",
-                    "2Au+C+2H",
-                    "2Au+C+4H",
-                    "2Au+2C+6H"])
+       .tickValues(["Au2CH4 + CH4",
+                    "Au2CH2 + H2 + CH4",
+                    "Au2C2H8",
+                    "Au2C2H8 + H2",
+                    "Au2C2H4 + 2H2"])
 
     chart.append("g")
         .attr("transform", function(){return "translate("+ barWidth/2 +","+ (height - margin.bottom) +")";})
@@ -194,6 +194,10 @@ d3.json("GoodStuff.json", function(error, data) {
       g.select(".domain").remove()
       g.selectAll(".tick text").attr("x", -20)
     }
+
+
+
+
 
     function customXAxis(g){
       g.call(xAxis)
