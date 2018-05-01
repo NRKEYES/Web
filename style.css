@@ -1,5 +1,8 @@
+min-height : 20000em;
 
-#3d {
+
+
+.threeD {
   z-index: -10
 	display: inline;
 }
@@ -14,7 +17,7 @@ p {
 
 h1,h2,h3,h4 {
     font-family: 'Old Standard TT', serif;
-    color: DarkestGrey;
+    color: Grey;
 }
 
 
@@ -23,14 +26,9 @@ h1 {
 }
 
 .chart {
+  min-height: inherit;
   z-index: 0;
   overflow: visible;
-}
-
-
-.chart rect {
-
-
 }
 
 
@@ -46,19 +44,11 @@ h1 {
     color: #8EE181;
 }
 
-.chart axis {
-  display: none;
-}
 
 
-#chartContainer {
+#chartContainer{
+  min-height: inherit;
   display: flex;
   justify-content: center;
   overflow: visible;
-}
-
-
-
-svg;{
-  overflow: scroll;
 }

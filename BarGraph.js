@@ -13,9 +13,10 @@ padding = 50;
 paddingMultiplier = 1.4;
 // let width = $(".col-6").width();
 let width = $(".container").width();
-let height = window.innerHeight * .60;
+//let height = window.innerHeight * .60;
+let height = 1000;
 
-var barHeight = 16,
+var barHeight = 5,
     barWidth = (width-paddingMultiplier*padding) / 5;
 
 
@@ -131,10 +132,11 @@ d3.json("GoodStuff.json", function(error, data) {
   let spacing = (width-padding) / keys.length;
 
   let bottomAxisSpacing = math.range(margin.left, width-margin.right, spacing)._data;
-  console.log(bottomAxisSpacing)
+  console.log(keys)
+
 
   var x = d3.scaleOrdinal()
-    .domain(keys)
+    .domain([keys[3],keys[2],keys[0],keys[4],keys[1]])
     .range(bottomAxisSpacing); // the underscore data helps to get the actual array
 
 
@@ -154,29 +156,33 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("rx", 5)
     .attr("ry", 5)
     .attr("fill", function(d) { return d3.interpolateRdBu((c(d.Energy))); })
-    .attr("width", (barWidth))
-    .attr("height", (barHeight) - 1)
+    .attr("width", (barWidth-30))
+    .attr("height", (barHeight))
     .transition()
     .attr("y",  function(d) {return y(d.Energy);})
     .duration(duration);
 
 
   bars.append("text")
-    .attr("y", barHeight / 2)
-    .attr("x", barWidth / 2)
+    .attr("y", barHeight)
+    .attr("x", barWidth-10)
     .attr("dy", ".35em")
     .text(function(d) {
-      return Math.round(d.Energy);
+      return Math.round(d.Key);
     })
     .transition()
     .attr("y", function(d) {
-      return y(d.Energy) + barHeight / 2;
+      return y(d.Energy) + barHeight;
     })
     .duration(duration);
 
 
     var xAxis = d3.axisBottom(x)
-       .tickValues(["2Au+2C+8H", "2Au+2C+4H", "2Au+C+2H","2Au+C+4H","2Au+2C+6H"]);
+       .tickValues(["Au<tspan baseline-shift = 'sub'>2</tspan>+2C+8H",
+                    "2Au+2C+4H",
+                    "2Au+C+2H",
+                    "2Au+C+4H",
+                    "2Au+2C+6H"])
 
     chart.append("g")
         .attr("transform", function(){return "translate("+ barWidth/2 +","+ (height - margin.bottom) +")";})

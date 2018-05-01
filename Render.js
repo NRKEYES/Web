@@ -29,7 +29,7 @@ pointLight.position.z = 30
 scene.add(pointLight);
 
 
-container = document.getElementById('3d');
+container = document.getElementById('threeD');
 container.appendChild(renderer.domElement);
 
 
@@ -73,7 +73,7 @@ function render(local_x,local_y,atoms, coords){
     camera.position.x = 10*math.cos(theta);
     camera.position.y = 5*math.sin(theta);
     camera.position.z = 10*math.sin(theta);
-    theta+= .05;
+    theta+= .03;
 
 
     pointLight.position.x = 10*math.cos(theta);
