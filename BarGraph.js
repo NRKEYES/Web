@@ -101,7 +101,7 @@ d3.json("GoodStuff.json", function(error, data) {
 
   var y = d3.scaleLinear()
     .domain([maxEnergy, minEnergy])
-    .range([0+margin.top, height-margin.bottom*paddingMultiplier]);
+    .range([0+margin.top*paddingMultiplier, height-margin.bottom*paddingMultiplier]);
 
   var c = d3.scaleLinear()
     .domain([maxEnergy,minEnergy])
@@ -168,7 +168,7 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("x", barWidth-10)
     .attr("dy", ".35em")
     .text(function(d) {
-      return Math.round(d.Key);
+      return Math.round(d.Energy);
     })
     .transition()
     .attr("y", function(d) {
