@@ -50,6 +50,9 @@ function render(local_x,local_y,atoms, coords){
   let theta = 0;
   spheres.forEach(function(s){ scene.remove(s) });
 
+  centerX = coords[0][0];
+  centerY = coords[0][1];
+  centerZ = coords[0][2];
   for(var i=0; i< coords.length; i++){
 
     let material = new THREE.MeshToonMaterial({  color: COLORS[atoms[i]] ,
@@ -59,9 +62,9 @@ function render(local_x,local_y,atoms, coords){
     let sphere = new THREE.Mesh( geometry, material);
 
 
-    sphere.position.set(coords[i][0],
-                        coords[i][1],
-                        coords[i][2]);
+    sphere.position.set(coords[i][0]-centerX,
+                        coords[i][1]-centerY,
+                        coords[i][2]-centerZ);
     spheres.push(sphere);
     scene.add(sphere);
   };
