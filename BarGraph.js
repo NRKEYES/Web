@@ -61,9 +61,11 @@ d3.json("GoodStuff.json", function(error, data) {
     d.Atoms = d.Atoms;
     d.Coords = d.Coords;
     d.Key = +d.Key;
+
     //console.log(d.Key);
     //console.log(d.Energy);
     d.Energy = Add_Energy(d) - normalizing_value;;
+    d.DrawEnergy = d.Energy;
 
     if (d.Energy < minEnergy) {
       minEnergy = d.Energy;
@@ -75,6 +77,7 @@ d3.json("GoodStuff.json", function(error, data) {
   });
   console.log(maxEnergy);
   console.log(minEnergy)
+
 
 
 
@@ -103,9 +106,53 @@ d3.json("GoodStuff.json", function(error, data) {
     .domain([maxEnergy, minEnergy])
     .range([0+margin.top*paddingMultiplier, height-margin.bottom*paddingMultiplier]);
 
-  var c = d3.scaleLinear()
-    .domain([maxEnergy,minEnergy])
-    .range([0,1])
+
+    data.forEach(function(d1){
+      again = false;
+      e1 = y(d1.DrawEnergy);
+      k1 = d1.Key;
+      data.forEach(function(d2){
+        e2 = y(d2.DrawEnergy);
+        k2 = d2.Key;
+        if (d1 == d2) return;
+        if (k1 != k2) return;
+        if (Math.abs(e1-e2) < 10){
+          console.log("Colision")
+          if (e1 > e2){
+            d1.DrawEnergy -= 5;
+          } else if (e2 > e1){
+            d2.DrawEnergy -= 5;
+          } else{
+            d1.DrawEnergy += 5;
+            d2.DrawEnergy -= 5;
+          }
+          again = true;
+        }
+      });
+    });
+
+
+    data.forEach(function(d) {
+
+      if (d.DrawEnergy < minEnergy) {
+        minEnergy = d.DrawEnergy;
+        maxAtomList = d.Atoms
+      }
+      if (d.DrawEnergy > maxEnergy) {
+        maxEnergy = d.DrawEnergy;
+      }
+    });
+    console.log(maxEnergy);
+    console.log(minEnergy)
+
+    var y = d3.scaleLinear()
+      .domain([maxEnergy, minEnergy])
+      .range([0+margin.top*paddingMultiplier, height-margin.bottom*paddingMultiplier]);
+
+    var c = d3.scaleLinear()
+      .domain([maxEnergy,minEnergy])
+      .range([0,1])
+
 
 
   // Now that y scale is defined, create maxAtomList
@@ -159,11 +206,12 @@ d3.json("GoodStuff.json", function(error, data) {
     .attr("width", (barWidth-30))
     .attr("height", (barHeight))
     .transition()
-    .attr("y",  function(d) {return y(d.Energy);})
+    .attr("y",  function(d) {return y(d.DrawEnergy);})
     .duration(duration);
 
 
   bars.append("text")
+    .attr("class", "E-Label")
     .attr("y", barHeight)
     .attr("x", barWidth-10)
     .attr("dy", ".35em")
@@ -172,7 +220,7 @@ d3.json("GoodStuff.json", function(error, data) {
     })
     .transition()
     .attr("y", function(d) {
-      return y(d.Energy) + barHeight;
+      return y(d.DrawEnergy);
     })
     .duration(duration);
 
@@ -195,26 +243,18 @@ d3.json("GoodStuff.json", function(error, data) {
       g.select(".domain").remove()
       g.selectAll(".tick text").attr("x", -20)
     }
-
-
-
-
-
     function customXAxis(g){
       g.call(xAxis)
       g.select(".domain").remove();
     }
 
-    chart.selectAll(".xaxis text")  // select all the text elements for the xaxis
-      .attr("transform", function(d) {
-         return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
-     });
+
+
+
 
 
 
 });
-
-
 
 
 
