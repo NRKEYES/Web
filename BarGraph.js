@@ -47,6 +47,8 @@ d3.json("GoodStuff.json", function(error, data) {
 
 
 
+
+
   let normalizing_value = (energeticFixxers[0].Energy + 2*energeticFixxers[1].Energy); //Super hacky and must be fixed
   console.log(energeticFixxers);
   console.log(normalizing_value)
